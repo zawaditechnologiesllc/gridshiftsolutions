@@ -1,0 +1,106 @@
+[
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101001",
+    "slug": "gs-450-mono-max",
+    "name": "GS-450 Mono Max",
+    "price_cents": 38900,
+    "tax_credit_eligible": true,
+    "image": "/images/products/panel-mono.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101002",
+    "slug": "shiftcell-10-5",
+    "name": "ShiftCell 10.5",
+    "price_cents": 624000,
+    "tax_credit_eligible": true,
+    "image": "/images/products/battery-wall.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101003",
+    "slug": "gs-bifacial-550",
+    "name": "GS-Bifacial 550",
+    "price_cents": 51200,
+    "tax_credit_eligible": true,
+    "image": "/images/products/panel-bifacial.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101004",
+    "slug": "shiftbank-pro-28",
+    "name": "ShiftBank Pro 28",
+    "price_cents": 1480000,
+    "tax_credit_eligible": true,
+    "image": "/images/products/battery-rack.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101005",
+    "slug": "gs-360-compact",
+    "name": "GS-360 Compact",
+    "price_cents": 31500,
+    "tax_credit_eligible": true,
+    "image": "/images/products/panel-compact.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101006",
+    "slug": "gridshift-inverter-7-6",
+    "name": "GridShift Inverter 7.6",
+    "price_cents": 215000,
+    "tax_credit_eligible": true,
+    "image": "/images/products/inverter.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101007",
+    "slug": "gridshift-pro-400w",
+    "name": "GridShift Pro 400W",
+    "price_cents": 32499,
+    "tax_credit_eligible": true,
+    "image": "/images/products/panel-pro.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101008",
+    "slug": "vertex-s-440w",
+    "name": "Vertex-S+ 440W",
+    "price_cents": 26750,
+    "tax_credit_eligible": true,
+    "image": "/images/products/panel-detail.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101009",
+    "slug": "powerbank-10kwh",
+    "name": "PowerBank 10kWh",
+    "price_cents": 549900,
+    "tax_credit_eligible": true,
+    "image": "/images/products/battery-wall.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101010",
+    "slug": "powerbank-max-25kwh",
+    "name": "PowerBank Max 25kWh",
+    "price_cents": 1120000,
+    "tax_credit_eligible": true,
+    "image": "/images/products/battery-max.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101011",
+    "slug": "nano-3kwh",
+    "name": "Nano 3kWh",
+    "price_cents": 185000,
+    "tax_credit_eligible": false,
+    "image": "/images/products/battery-nano.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101012",
+    "slug": "powergrid-hybrid-inverter-10kw",
+    "name": "PowerGrid Hybrid Inverter",
+    "price_cents": 289000,
+    "tax_credit_eligible": true,
+    "image": "/images/products/inverter-3phase.svg"
+  },
+  {
+    "id": "5f3c1a2e-9b4d-4c6e-8a1f-101010101013",
+    "slug": "universal-mounting-hardware",
+    "name": "Universal Mounting Hardware",
+    "price_cents": 84000,
+    "tax_credit_eligible": false,
+    "image": "/images/products/mounting-kit.svg"
+  }
+]
