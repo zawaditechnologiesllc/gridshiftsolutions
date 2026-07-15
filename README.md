@@ -125,11 +125,16 @@ Using the included Blueprint:
 ### 4. Vercel (frontend)
 
 1. **Import** the repo in Vercel (framework auto-detected as Next.js).
-2. Set environment variables:
+2. **Project Settings → General → Root Directory must be `./`** (the repository
+   root — leave it blank/default). The Next.js app lives at `src/app`; the
+   `server/` folder is the separate Render backend and must **not** be selected as
+   the root. If the Root Directory points at a subdirectory, the build fails with
+   `Couldn't find any pages or app directory`.
+3. Set environment variables:
    - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
    - `NEXT_PUBLIC_API_URL` — your Render service URL
    - `NEXT_PUBLIC_CURRENCY` — matches `PAYSTACK_CURRENCY`
-3. Deploy. Update `FRONTEND_URL` on Render to the final Vercel domain so CORS and
+4. Deploy. Update `FRONTEND_URL` on Render to the final Vercel domain so CORS and
    the Paystack callback line up.
 
 ## Payment flow

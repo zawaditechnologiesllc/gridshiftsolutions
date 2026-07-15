@@ -1,11 +1,4 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "nextjs",
-  "buildCommand": "next build",
-  "installCommand": "npm install",
-  "git": {
-    "deploymentEnabled": {
-      "claude/vibrant-carson-2rojak": true
-    }
-  }
+  "framework": "nextjs"
 }
