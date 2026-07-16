@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Support",
@@ -45,7 +46,7 @@ export default function SupportPage() {
           engineering team.
         </p>
         <p className="mt-4 font-mono text-sm text-teal-300">
-          engineering@gridshift.example · Mon–Fri, 8:00–18:00
+          {site.supportEmail} · {site.supportHours}
         </p>
       </div>
 

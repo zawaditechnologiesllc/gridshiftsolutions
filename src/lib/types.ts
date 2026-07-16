@@ -26,6 +26,13 @@ export interface Product {
   images: string[];
   stock: number;
   featured: boolean;
+  // Admin / sourcing fields (present once migration 002 is applied).
+  cost_cents?: number | null;
+  source?: "manual" | "cjdropshipping" | string;
+  cj_pid?: string | null;
+  active?: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export interface CartItem {
@@ -56,6 +63,12 @@ export interface OrderSummary {
   total_cents: number;
   delivery_method: DeliveryMethod;
   created_at: string;
+  // Present for admins reading all orders.
+  email?: string;
+  user_id?: string | null;
+  fulfillment_status?: "unfulfilled" | "processing" | "shipped" | "delivered" | "cancelled";
+  tracking_number?: string | null;
+  shipping_address?: Record<string, unknown>;
   order_items?: {
     name: string;
     unit_price_cents: number;

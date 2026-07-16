@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 48" fill="none" role="img" aria-label="GridShift Solutions">
+  <defs>
+    <linearGradient id="gsBoltFull" x1="14" y1="6" x2="34" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2dd4bf"/>
+      <stop offset="0.55" stop-color="#0d9488"/>
+      <stop offset="1" stop-color="#facc15"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="46" height="46" rx="11" fill="#0f172a"/>
+  <g stroke="#334155" stroke-width="1.4" stroke-linecap="round">
+    <line x1="9" y1="16" x2="39" y2="16"/>
+    <line x1="9" y1="24" x2="39" y2="24"/>
+    <line x1="9" y1="32" x2="39" y2="32"/>
+  </g>
+  <path d="M27.5 7 L15.5 26.2 H22.4 L20.5 41 L33 21.4 H25.9 L27.5 7 Z"
+        fill="url(#gsBoltFull)" stroke="#0f172a" stroke-width="1.4" stroke-linejoin="round"/>
+  <text x="60" y="24" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="-0.4" fill="#0f172a">GridShift</text>
+  <text x="60" y="40" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="10.5" letter-spacing="3.5" fill="#0d9488">SOLUTIONS</text>
+</svg>

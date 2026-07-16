@@ -25,11 +25,16 @@ export async function getProducts(): Promise<Product[]> {
         .select("*")
         .order("featured", { ascending: false })
         .order("name");
-      if (!error && data && data.length > 0) return data as Product[];
+      // Trust the database once connected — an empty catalog is a valid state
+      // (a fresh store the admin hasn't stocked yet), not a reason to show demo
+      // data. Only a hard error falls back to the bundled seed for resilience.
+      if (!error && data) return data as Product[];
     } catch {
-      // fall through to bundled data
+      // fall through to bundled data on connection failure
     }
+    return FALLBACK_PRODUCTS;
   }
+  // No Supabase configured (local dev): use the bundled demo catalog.
   return FALLBACK_PRODUCTS;
 }
 

@@ -20,8 +20,39 @@ energy-yellow palette, and low-contrast tonal surfaces.
 | Auth (Supabase email/password) | `/login`, `/signup` |
 | Account (order history via RLS) | `/account` |
 | Solutions / Support | `/solutions`, `/support` |
+| **Admin console** (dashboard, products CRUD, CJ import, orders) | `/admin` |
 
-Fully responsive with a mobile bottom-nav matching the mobile design.
+Fully responsive with a mobile bottom-nav matching the mobile design. Ships with
+a branded logo (`public/logo.svg`, `public/logo-mark.svg`) and an auto-generated
+favicon (`src/app/icon.svg`), plus `robots.txt`, `sitemap.xml`, and hardening
+security headers.
+
+## Admin console & product sourcing
+
+`/admin` is gated to users listed in the `admin_users` table (server-checked via
+the `is_admin()` RPC; all writes are enforced by row-level security):
+
+- **Dashboard** — product/order counts, recent revenue, orders awaiting fulfillment.
+- **Products** — full CRUD: create manually or **import from CJdropshipping**,
+  edit every field (pricing, cost, specs, images, energy attributes), toggle
+  featured/visible, delete.
+- **Orders** — every order with items and shipping address; update fulfillment
+  status and tracking number.
+
+### CJdropshipping import
+
+Paste a CJ **product URL or ID** in *Products → Add / Import*. The Render backend
+authenticates with the CJ API 2.0, fetches the product, and normalizes it
+(title, images, price with configurable markup, weight/material/variant specs)
+into a review form. Nothing is trusted from the client — the raw CJ payload is
+preserved in `products.cj_data`, and the admin reviews before saving.
+
+- Configure `CJ_EMAIL` + `CJ_API_KEY` (CJ Dashboard → Authorization → API Key)
+  on the Render service. `CJ_DEFAULT_MARKUP` sets the default retail multiplier.
+- Supported link formats: `…-p-<PID>.html`, `?pid=/id=/productId=<PID>`, a bare
+  numeric PID, or a UUID.
+- The catalog is fully DB-driven: a fresh store starts empty (no demo data) and
+  is populated entirely through the admin console.
 
 ## Architecture
 
@@ -90,14 +121,22 @@ configured.
 ### 1. Supabase (database + auth)
 
 1. Create a project at [supabase.com](https://supabase.com).
-2. In the **SQL Editor**, run `supabase/migrations/001_init.sql`, then
-   `supabase/seed.sql`.
+2. In the **SQL Editor**, run the migrations in order:
+   `supabase/migrations/001_init.sql`, then `supabase/migrations/002_admin_and_sourcing.sql`.
+   Optionally run `supabase/seed.sql` to load demo products (skip it for a clean
+   store you'll fill via the admin console).
 3. **Settings → API**: copy the **Project URL**, the **anon** key (frontend), and
    the **service_role** key (backend only — keep secret).
 4. **Authentication → URL Configuration**: add your Vercel domain to the redirect
    allow-list (e.g. `https://your-app.vercel.app/**`).
+5. **Make yourself an admin**: sign up in the app, then run in the SQL Editor:
+   ```sql
+   insert into public.admin_users (user_id, email)
+   select id, email from auth.users where email = 'you@example.com'
+   on conflict (user_id) do nothing;
+   ```
 
-> Regenerate the seed after editing the catalog: `npm run generate:seed`.
+> Regenerate the demo seed after editing `src/data/products.json`: `npm run generate:seed`.
 
 ### 2. Render (payments API)
 
@@ -110,6 +149,7 @@ Using the included Blueprint:
    - `FRONTEND_URL` — your Vercel URL, e.g. `https://your-app.vercel.app`
    - `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`
    - `PAYSTACK_SECRET_KEY`, `PAYSTACK_CURRENCY`
+   - `CJ_EMAIL`, `CJ_API_KEY` (for admin product import), `CJ_DEFAULT_MARKUP`
 4. Deploy. Health check: `GET /health`.
 
 ### 3. Paystack (payments)

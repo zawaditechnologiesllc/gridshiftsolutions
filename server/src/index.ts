@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { randomBytes } from "node:crypto";
-import { config, missingPaymentConfig } from "./config.js";
+import { config, cjConfigured, missingPaymentConfig } from "./config.js";
 import { getServiceSupabase } from "./supabase.js";
 import { getPricedProducts } from "./catalog.js";
 import {
@@ -9,6 +9,8 @@ import {
   isValidWebhookSignature,
   verifyTransaction,
 } from "./paystack.js";
+import { AuthError, requireAdmin } from "./auth.js";
+import { normalizeCjProduct, parseCjPid, queryCjProduct } from "./cj.js";
 
 const app = express();
 app.set("trust proxy", 1);
@@ -281,6 +283,62 @@ app.get("/api/checkout/verify", async (req, res) => {
     res.status(502).json({ error: message });
   }
 });
+
+// ─── Admin: CJdropshipping import ────────────────────────────────────────────
+
+app.get("/api/admin/cj/status", async (req, res) => {
+  try {
+    await requireAdmin(req);
+    res.json({ configured: cjConfigured(), defaultMarkup: config.cjDefaultMarkup });
+  } catch (err) {
+    handleAdminError(res, err);
+  }
+});
+
+interface CjImportBody {
+  url?: string;
+  pid?: string;
+  category?: string;
+  manufacturer?: string;
+  markup?: number;
+}
+
+app.post("/api/admin/cj/preview", async (req, res) => {
+  try {
+    await requireAdmin(req);
+    if (!cjConfigured()) {
+      res.status(503).json({
+        error: "CJdropshipping is not configured. Set CJ_EMAIL and CJ_API_KEY.",
+      });
+      return;
+    }
+    const body = req.body as CjImportBody;
+    const pid = parseCjPid(body.pid || body.url || "");
+    if (!pid) {
+      res.status(400).json({ error: "Could not find a product id in that CJ link." });
+      return;
+    }
+    const raw = await queryCjProduct(pid);
+    const product = normalizeCjProduct(raw, {
+      category: body.category,
+      manufacturer: body.manufacturer,
+      markup: body.markup,
+    });
+    res.json({ product, cj_data: raw });
+  } catch (err) {
+    handleAdminError(res, err);
+  }
+});
+
+function handleAdminError(res: express.Response, err: unknown): void {
+  if (err instanceof AuthError) {
+    res.status(err.status).json({ error: err.message });
+    return;
+  }
+  console.error("admin error", err);
+  const message = err instanceof Error ? err.message : "Request failed.";
+  res.status(502).json({ error: message });
+}
 
 app.listen(config.port, () => {
   console.log(`gridshift-api listening on :${config.port}`);

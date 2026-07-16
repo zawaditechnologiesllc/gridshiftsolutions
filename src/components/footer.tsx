@@ -34,7 +34,11 @@ export default function Footer() {
     <footer className="border-t border-slate-200 bg-slate-50">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="max-w-xs">
-          <p className="text-lg font-bold tracking-tight">GridShift Solutions</p>
+          <div className="flex items-center gap-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-mark.svg" alt="" width={28} height={28} className="h-7 w-7" />
+            <p className="text-lg font-bold tracking-tight">GridShift Solutions</p>
+          </div>
           <p className="mt-3 text-sm leading-6 text-slate-600">
             Advanced energy engineering for residential and commercial
             independence. Sustainably sourced, technically superior.

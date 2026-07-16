@@ -42,6 +42,8 @@ export default async function AccountPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login?next=/account");
 
+  const { data: isAdmin } = await supabase.rpc("is_admin");
+
   const { data: orders } = await supabase
     .from("orders")
     .select(
@@ -58,7 +60,17 @@ export default async function AccountPage() {
           <h1 className="text-3xl font-bold tracking-tight">My Account</h1>
           <p className="mt-2 font-mono text-sm text-slate-600">{user.email}</p>
         </div>
-        <SignOutButton />
+        <div className="flex items-center gap-3">
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className="inline-flex h-10 items-center rounded-sm bg-slate-900 px-4 text-sm font-semibold text-white transition-colors hover:bg-teal-700"
+            >
+              Admin Console
+            </Link>
+          )}
+          <SignOutButton />
+        </div>
       </div>
 
       <section className="mt-10">

@@ -22,8 +22,10 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-slate-50/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6">
-        <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
-          GridShift Solutions
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-mark.svg" alt="" width={30} height={30} className="h-[30px] w-[30px]" />
+          <span className="text-lg font-bold tracking-tight">GridShift Solutions</span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 md:flex">

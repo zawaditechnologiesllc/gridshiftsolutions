@@ -6,6 +6,7 @@ import { AuthProvider } from "@/lib/auth-context";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import MobileNav from "@/components/mobile-nav";
+import { site } from "@/lib/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,12 +19,21 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
   title: {
-    default: "GridShift Solutions — Engineered for Energy Independence",
-    template: "%s | GridShift Solutions",
+    default: `${site.name} — ${site.tagline}`,
+    template: `%s | ${site.name}`,
   },
   description:
     "High-performance solar and storage solutions designed for those who demand precision, reliability, and total control over their energy future.",
+  openGraph: {
+    title: `${site.name} — ${site.tagline}`,
+    description:
+      "High-performance solar and storage solutions engineered for total energy independence.",
+    url: site.url,
+    siteName: site.name,
+    type: "website",
+  },
 };
 
 export default function RootLayout({
